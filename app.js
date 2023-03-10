@@ -16,14 +16,17 @@ app.get("/", function(req, res) {
             const temp = weatherData.main.temp;
             const feels_like = weatherData.main.feels_like;
             const weather_description = weatherData.weather[0].description;
+
+            const icon = weatherData.weather[0].icon;
+            const icon_url = "https://openweathermap.org/img/wn/" + icon + "@2x.png";
             
-            console.log("Temp. in MB is: " + temp);
-            console.log("But it's feels like: " + feels_like);
-            console.log(weather_description);
+            res.setHeader('Content-Type', 'text/html; charset=utf-8');
+            res.write("<h1>The temperature in Maribor is " + temp + " degrees Celcius </h1>");
+            res.write("<h1>Tukaj je " + weather_description + "</h1>");
+            res.write("<img src=" + icon_url + ">");
+            res.send();
         });
     });
-
-    res.send("Hello World!");
 });
 
 app.listen(3000, () => {
